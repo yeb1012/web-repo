@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>(webapp/)js/for.html</title>
+<script>
+    console.log('javascript start...');
+    for(let i =0; i<5; i++){
+        console.log(i);
+    }
+
+    //배열과 for
+    let numary/*(참조함수)*/=[1,2,3,4,5]; //배열객체
+    let sum=0;/*값을 직접 지정하는 함수*/
+    console.log( typeof numary);
+    //let, const: 블럭단위의 별수 지정.
+    //var: 전역적 or 지역적(함수 안)으로 사용.
+    for(let i =0; i<numary.length; i++){
+        console.log(i);
+        sum+= numary[i];
+    }
+    console.log('sum의 값' + sum);
+    //확장 for..of..
+    sum = 0; //sum의 값 초기화
+    for(let val of numary){
+        //인덱스값 쓰고 싶으면 이거 쓰면 안됨
+        sum += val;
+    }
+    console.log(`sum의 값: ${sum}`);
+    //배열.forEach(함수가 매개값)
+    sum = 0; 
+    numary.forEach(function(item, idx, ary){
+       //if(item%2==0) 짝수조건
+        if(idx<3){sum+=item}; //1,2,3번째
+    })
+    console.log(`sum의 값: ${sum}`);
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
