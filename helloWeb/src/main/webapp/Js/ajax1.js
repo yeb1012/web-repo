@@ -49,15 +49,21 @@ xhtp.onload = loadJson;
 function loadJson(){
 	console.log(xhtp.responseText);
 	let result = JSON.parse(xhtp.responseText);//json문자열=>오브젝트로
-	console.log(result);
+	console.log("result:",result); //실제 배열
 	let titles = ["회원번호", "비밀번호", "이름", "연락처"];
-	let result2 = table.makeTable(titles, result);
+	let dataAry =[];
+	result.forEach(member=>{
+		dataAry.push({mid: member.mid, mpassword: member.mpassword, name: member.name,  phone: member.phone})
+	})
+	
+	
 	//console.log(result);
-	document.getElementById('show').innerHTML = result2;
+	result = table.makeTable(titles, result);
+	document.getElementById('show').innerHTML = result;
 	
 }
 
-function loadXML() {
+/*function loadXML() {
 	console.log(xhtp.responseXML)
 	let doc = xhtp.responseXML;
 	let records = doc.getElementsByTagName('record');
@@ -77,12 +83,13 @@ function loadXML() {
 
 	let result = table.makeTable(titles, dataAry);
 	//console.log(result);
-	document.getElementById('show').innerHTML = result;
+	document.getElementById('show').innerHTML = result;*/
 	
-	let newMember={mid : "M009", mpassword : "9999", name:"민식이", phone:"010-2415-9568"}
-	let member = '<tr><td>'+newMember.mid+'</td><td>'+newMember.mpassword+'</td><td>'+newMember.name+'</td><td>'+newMember.phone+'</td></tr>'
+	//let newMember={mid : "M009", mpassword : "9999", name:"민식이", phone:"010-2415-9568"}
+	//let member = '<tr><td>'+newMember.mid+'</td><td>'+newMember.mpassword+'</td><td>'+newMember.name+'</td><td>'+newMember.phone+'</td></tr>'
 
-document.getElementById('list').innerHTML += member;
+//document.getElementById('list').innerHTML += member;
 
 
-}//endofload
+//}//endofload
+

@@ -1,6 +1,5 @@
 package org.yedam;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -11,21 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.yedam.service.MemberService;
-import org.yedam.service.MemberServiceImpl;
-import org.yedam.service.MemberVO;
+import org.yedam.service.BookService;
+import org.yedam.service.BookServiceImpl;
+import org.yedam.service.BookVO;
 
 /**
- * Servlet implementation class MemberService
+ * Servlet implementation class BookServ
  */
-@WebServlet("/MemberService2")
-public class MemberServlet2 extends HttpServlet {
+@WebServlet("/BookListServlet")
+public class BookListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberServlet2() {
+    public BookListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,30 +33,27 @@ public class MemberServlet2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		MemberService svc = new MemberServiceImpl();
-		List<MemberVO> list = svc.memberList();		
-		System.out.println("JSON데이터 입니다..");
+		BookService bs = new BookServiceImpl();
+		List<BookVO> list = bs.bookList();
 		
-		response.setContentType("text/json;charset=utf-8");
+		response.setContentType("text/jason;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		//[{"mid"value, "pass":value, "name":value, "phone"value}]
 		int cnt = 0;
-		String str ="[";
-		for(MemberVO vo : list) {
-			str += "{";
-			str +="\"mid \":\""+vo.getMid()+"\",";
-			str +="\"mpassword\":\""+vo.getMpassword()+"\",";
-			str +="\"name\":\""+vo.getName()+"\",";
-			str +="\"phone\":\""+vo.getPhone()+"\"";
-			str += "}";
+		String str = "[";
+		for(BookVO vo : list) {
+			str +="{";
+			str +="\"bookcode\":\""+vo.getBookCode()+"\",";
+			str +="\"booktitle\":\""+vo.getBookTitle()+"\",";
+			str +="\"bookauthor\":\""+vo.getBookAuthor()+"\",";
+			str +="\"bookpress\":\""+vo.getBookPress()+"\",";
+			str +="\"bookprice\":\""+vo.getBookPrice()+"\",";
+			str +="}";
 			if(++cnt != list.size())
-			{str +=",";		}
+			{str +=",";}
 		}
-		str+="]";
-		out.print(str);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-	}//doGet
+			str+="]";
+			out.print(str);
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

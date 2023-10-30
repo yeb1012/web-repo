@@ -1,7 +1,5 @@
-//ajaxModule.js
-
 const table={
-	makeHead(titles = ['회원아이디','회원비밀번호','이름','연락처']){
+	makeHead(titles = ['도서코드','도서명','저자','출판사','가격','삭제']){
 		let headTag ="<thead><tr>"
 		titles.forEach(title=>{
 			headTag += "<th>"+title+"</th>"
@@ -10,8 +8,8 @@ const table={
 		return headTag;
 	},
 	
-	makeBody(dataAry = [{mid, mpassword, name, phone}]){
-		let bodyTag ="<tbody id ='list'>"
+	makeBody(dataAry = [{bookCode, bookTitle, bookAuthor, bookPress, bookPrice}]){
+		let bodyTag ="<tbody>"
 		dataAry.forEach(item=>{
 			bodyTag+=this.makeTr(item);
 		})
@@ -24,10 +22,10 @@ const table={
 		table +="</table>";
 		return table;
 	},
-	makeTr(member ={}){
-		let trTag = "<tr onclick = 'showInfo(event,this)'>";
-		for (let prop in member){
-			trTag += "<td>" + member[prop] + "</td>";
+	makeTr(bookList ={}){
+		let trTag = "<tr>";
+		for (let prop in bookList){
+			trTag += "<td>" + bookList[prop] + "<button id='del'>삭제</button> </td>";
 			
 		}
 		trTag += "</tr>";
