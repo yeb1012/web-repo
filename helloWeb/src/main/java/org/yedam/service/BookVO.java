@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 
 public class BookVO {
+	
 	private String bookCode;
 	private String bookTitle;
 	private String bookAuthor;

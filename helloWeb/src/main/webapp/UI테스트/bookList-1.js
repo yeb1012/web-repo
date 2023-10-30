@@ -12,6 +12,7 @@ const table={
 		let bodyTag ="<tbody>"
 		dataAry.forEach(item=>{
 			bodyTag+=this.makeTr(item);
+			bodyTag+="<button onclick = 'this.parentElement.parentElement.remove()'>삭제</button>";
 		})
 		bodyTag +="</tbody>"
 		return bodyTag;

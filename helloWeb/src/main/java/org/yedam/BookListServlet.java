@@ -53,7 +53,7 @@ public class BookListServlet extends HttpServlet {
 		}
 			str+="]";
 			out.print(str);
-	}
+	}//doGet
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -13,11 +13,21 @@ public class BookServiceImpl implements BookService {
 	private DataSource dao = DataSource.getInstance();
 	private Connection conn;
 	private PreparedStatement psmt;
+	private void close() {
+		try {
+			if (psmt != null)
+				psmt.close();// 2번닫고
+			if (conn != null)
+				conn.close();// 1번닫고
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public List<BookVO> bookList() {
 		List<BookVO> book = new ArrayList<BookVO>();
-		String sql = "Select*from book";
+		String sql = "SELECT*FROM BOOK";
 		BookVO vo;
 		try {
 			conn = dao.getConnection();
@@ -37,15 +47,8 @@ public class BookServiceImpl implements BookService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (psmt != null)
-					psmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close();
 		}
-		return null;
+		return book;
 	}// bookList
 }// class

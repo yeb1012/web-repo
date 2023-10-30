@@ -6,10 +6,10 @@ xhtp.onload =Json;
 
 function Json() {
 	let result = JSON.parse(xhtp.responseText);
-	let titles = ["도서코드", "도서명", "저자", "출판사", "가격"];
+	let titles = ["도서코드", "도서명", "저자", "출판사", "가격", "삭제"];
 	let dataAry = [];
 	result.forEach(book => {
-		dataAry.push({ bookcode: book.bookCode, booktitle: book.bookTitle, bookauthor: book.bookAuthor, bookpress: book.bookPress, bookprice: book.bookPrice})
+		dataAry.push({ bookCode: book.bookCode, bookTitle: book.bookTitle, bookAuthor: book.bookAuthor, bookPress: book.bookPress, bookPrice: book.bookPrice})
 	})
 
 	result = table.makeTable(titles, result);
