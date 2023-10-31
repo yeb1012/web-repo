@@ -15,12 +15,32 @@
 		<li> 사과</li>
 		<li> 딸기</li>
 		<li> 귤</li>
+		<li>포도</li>
 	</ul>
-	<p>깃 작업을 추가함</p>
-
-	<b>a의 상태로 변경</b>
-	<b>b의 상태변경.</b>
-
+	<p class ="first">깃 작업을 추가함</p>
+	<p id ="second">a의 상태로 변경</p>
+	<p>b의 상태변경.</p>
+	<script>
+		let body =document.querySelector('body');
+		console.log(body);
+		console.log(body.children[3].children[2].innerHTML = "메론");
+		//console.log(body.parentElement.innerHTML = "");
+		//document.querySelector('ul').innerHTML = '<p>test</p>';
+		
+		//li의 5번째 키위
+		let li5 =document.createElement('li');//5번째 li 만듬
+		li5.innerHTML = '키위';//키위 생성 아직 생성만 된 단계
+		console.log(li5);
+		document.querySelector('ul').appendChild(li5); //ul안에 직접 생성됨
+		
+		
+		let p4 = document.createElement('p');
+		p4.setAttribute('class','forth');
+		p4.innerHTML = 'c의 상태 변경'		
+		document.querySelector('p:nth-of-type(3)').after(p4);//after 동생으로 붙이고 싶다
+		
+		
+	</script>
 </body>
 
 </html>

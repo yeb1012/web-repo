@@ -46,7 +46,7 @@ public class BookListServlet extends HttpServlet {
 			str +="\"booktitle\":\""+vo.getBookTitle()+"\",";
 			str +="\"bookauthor\":\""+vo.getBookAuthor()+"\",";
 			str +="\"bookpress\":\""+vo.getBookPress()+"\",";
-			str +="\"bookprice\":\""+vo.getBookPrice()+"\",";
+			str +="\"bookprice\":\""+vo.getBookPrice()+"\"";
 			str +="}";
 			if(++cnt != list.size())
 			{str +=",";}

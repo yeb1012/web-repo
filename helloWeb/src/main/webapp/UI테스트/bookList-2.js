@@ -1,10 +1,11 @@
 import { table } from './bookList-1.js'
+
 let xhtp = new XMLHttpRequest();
 xhtp.open('get', '../BookListServlet');
 xhtp.send();
-xhtp.onload =Json;
+xhtp.onload =loadJson;
 
-function Json() {
+function loadJson() {
 	let result = JSON.parse(xhtp.responseText);
 	let titles = ["도서코드", "도서명", "저자", "출판사", "가격", "삭제"];
 	let dataAry = [];
