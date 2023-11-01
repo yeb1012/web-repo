@@ -21,7 +21,7 @@ import com.google.gson.GsonBuilder;
 /**
  * Servlet implementation class AddMemberServ
  */
-@WebServlet("/AddMemberServ")
+@WebServlet("/AddMemberServ.html")
 public class AddMemberServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

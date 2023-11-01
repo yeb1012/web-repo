@@ -1,15 +1,61 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>js/dom.html</title>
+	<meta charset="UTF-8">
+	<title>js/dom.html</title>
+	<style>
+		.center {
+			text-align: center;
+			
+		}
+
+		.pagination {
+			display: inline-block;
+		}
+
+		.pagination a {
+			color: black;
+			float: left;
+			padding: 4px 8px;
+			text-decoration: none;
+			transition: background-color .3s;
+			border: 1px solid #ddd;
+			margin: 10px 4px;
+			width:15px;
+		}
+
+		.pagination a.active {
+			background-color: #4CAF50;
+			color: white;
+			border: 1px solid #4CAF50;
+		}
+
+		.pagination a:hover:not(.active) {
+			background-color: #ddd;
+		}
+	table{
+		margin:auto;
+		
+	}
+	#sidoList{
+		margin: 20px;
+	}
+		
+	</style>
 </head>
+
 <body>
+	<div class="center">
 	<label>시도를 선택하세요</label>
-	<select id = "sidoList">
-	<option>선택하세요</option>
+	<select id="sidoList">
+		<option>선택하세요</option>
 	</select>
-	<div id ="show"></div>
-	<script type = "module" src ="dom3.js"></script>
+	
+		<div id="show"></div>
+		<div class="pagination"></div>
+	</div>
+	<script type="module" src="dom3.js"></script>
 </body>
+
 </html>

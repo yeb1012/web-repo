@@ -1,8 +1,10 @@
 //dom3.js
+
 //table>(thead>tr>th>*5)+(tbody>tr>td*5)*건수
-import table from './domtable.js';
+
+import table from './domTable.js';
 let url = 'https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&serviceKey=ukuVB4wScBaSljTiEk6XP%2F9hrXe6mz2sUK3dPZqMBlNcJuiCdi7qjlYm9ux%2FFa6ucZLm8O07brhaZgZDrIHnvQ%3D%3D'
-let titles = ['센터id', '센터명', '의료원', '연락처','위도','경도']
+let titles = ['센터id', '센터명', '시도', '연락처','주소']
 fetch(url)
 	.then(resolve => resolve.json())
 	.then(fetchCallback)
@@ -43,29 +45,93 @@ function fetchCallback(result) {
 	}
 	
 	//초기화면
-	let filterAry = rawData.filter(function(item) {
-		return item.sido == "대구광역시"
-	})
-	genTable(filterAry);
-
+	//let filterAry = rawData.filter(function(item) {
+	//	return item.sido == "대구광역시"
+	//})
+	//genTable(filterAry); //대구광역시로 필터된 정보만 초기화면에 띄우기
+	//genTable(rawData,2);//전체 데이터를 10개씩 나눈 페이지 중 2페이지 정보를 초기화면으로
+	genTable(rawData)
 }
 
 
-function genTable(rawData = []) {
+function genTable(rawData = [], page=1) {
 	//테이블 만들어지는 시점에 초기호ㅏ
 	//document.getElementById('show');
-	document.querySelector('#show').innerHTML = '';
-
+	document.querySelector('#show').innerHTML = ' ';
+	//첫번째, 마지막=>계산
+	let startNo = (page-1)*5;
+	let endNo = page*5;
+	
+	//첫번째페이지, 마지막페이지 =>계산
+	let totalCnt = rawData.length;
+	let lastPage = Math.ceil(totalCnt /5);
+	let endPage = Math.ceil(page/5)*5;
+	let beginPage = endPage - 4;
+	let prevPage, nextPage = false 
+	if(beginPage>1){
+		prevPage = true;
+	}
+	
+	if(endPage<lastPage){
+		nextPage = true;
+	}
+	if(endPage>lastPage){
+		endPage = lastPage;
+	}
+	document.querySelector('.pagination').innerHTML = ' ';
+	//이전페이지 여부
+	if(prevPage){
+		let aTag = document.createElement('a');
+		aTag.setAttribute('href', '#');
+		aTag.innerHTML = '&laquo;'
+		aTag.addEventListener('click', function(e){
+			genTable(rawData,beginPage-1);
+		})
+		document.querySelector('.pagination').append(aTag);
+	}
+	
+	for(let i =beginPage; i<=endPage; i++){
+		let aTag = document.createElement('a');
+		aTag.setAttribute('href', '#');
+		aTag.innerHTML = i;
+		if(i==page){
+			aTag.setAttribute('class', 'active');
+		}
+		
+		
+		aTag.addEventListener('click', function(e){
+			genTable(rawData,i+2);
+			
+			
+		})
+		document.querySelector('.pagination').append(aTag);
+	}
+	//다음페이지 여부
+	if(nextPage){
+		let aTag = document.createElement('a');
+		aTag.setAttribute('href', '#');
+		aTag.innerHTML = '&raquo;'
+		aTag.addEventListener('click', function(e){
+			genTable(rawData,endPage+1);
+		})
+		document.querySelector('.pagination').append(aTag);
+	}
+	
+	//전체를 rawData로 출력
 	let thead = table.makeHead(titles);//헤더정보
-	let mapData = rawData.reduce((acc,center) => {
+	let mapData = rawData.reduce((acc,center, idx) => {
+		if(idx>=startNo && idx <endNo){
 		let newCenter = {
 			id: center.id,
 			centerName: center.centerName.replace('코로나19', ''),
-			org: center.org,
+			sido: center.sido,
 			phoneNumber: center.phoneNumber,
+			address:center.address,
 			lat:center.lat,
-			lng:center.lng}
+			lng:center.lng
+			}
 		acc.push(newCenter)
+		}
 		return acc},[]);
 		console.log(mapData);
 		
@@ -81,8 +147,8 @@ function genTable(rawData = []) {
 	let targetTr = document.querySelectorAll('tbody tr');
 	targetTr.forEach(tr=>{//쿼리 올 일때만 포이치 사용 가능
 		tr.addEventListener('click', function(e){
-			let lat =tr.children[4].innerHTML;
-			let lng =tr.children[5].innerHTML;
+			let lat =tr.dataset.lat;
+			let lng =tr.dataset.lng//tr.children[5].innerHTML;
 			//location.href = 'daumapi.html?x='+lat+'&y='+lng;
 			window.open('daumapi.html?x='+lat+'&y='+lng)
 		})

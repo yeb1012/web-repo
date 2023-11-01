@@ -39,7 +39,7 @@ function modifyMember(e) {
 	let name = document.getElementById('name').value;
 	let phone = document.getElementById('phone').value;
 	const xhtp = new XMLHttpRequest();
-	xhtp.open('get', '../ModMemberServ.html? +&mpassword=' + mpassword + '&name=' + name + '&phone=' + phone +'&mid=' + mid);
+	xhtp.open('get', '../ModMemberServ.html?mpassword=' + mpassword + '&name=' + name + '&phone=' + phone +'&mid=' + mid);
 	xhtp.send();
 	xhtp.onload = function() {
 		let result = JSON.parse(xhtp.responseText);
