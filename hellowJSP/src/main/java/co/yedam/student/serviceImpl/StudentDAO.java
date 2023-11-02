@@ -1,6 +1,7 @@
 package co.yedam.student.serviceImpl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,21 +35,21 @@ public class StudentDAO {
 	}
 //삽입
 	public int insert(StudentVO vo) {
-		String sql = "insert into student(student_id, student_name,student_password, student_dept, student_birthday) "
+		String sql = "insert into student(student_id, student_password,  student_name, student_dept, student_birthday) "
 				+ " values (?,?,?,?,?)";
 
 		conn = ds.getConnection();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(sdf.format(vo.getStudentBirthday()));
+		
 		//2012-03-05 Novem-05
 		//Date -> String sdf.format();
 		//String -> Date sdf.parse("");
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getStudentId());
-			psmt.setString(2, vo.getStudentName());
-			psmt.setString(3, vo.getStudentPassword());
+			psmt.setString(3, vo.getStudentName());
+			psmt.setString(2, vo.getStudentPassword());
 			psmt.setString(4, vo.getStudentDept());
 			psmt.setString(5, sdf.format(vo.getStudentBirthday()));
 			int n = psmt.executeUpdate();
@@ -62,7 +63,7 @@ public class StudentDAO {
 	}
 //수정:update
 	public int update(StudentVO vo) {
-	String sql = "update student set student_name=?, student_password=?, student_dept=?, student_birthday=? where student_id=? ";
+	String sql = "update student set student_name=?, student_password=?, student_dept=nvl(?, student_dept), student_birthday=? where student_id=? ";
 	conn = ds.getConnection();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	try {

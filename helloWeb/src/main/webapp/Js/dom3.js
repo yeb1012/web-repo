@@ -65,13 +65,18 @@ function genTable(rawData = [], page=1) {
 	//첫번째페이지, 마지막페이지 =>계산
 	let totalCnt = rawData.length;
 	let lastPage = Math.ceil(totalCnt /5);
-	let endPage = Math.ceil(page/5)*5;
-	let beginPage = endPage - 4;
+	let endPage = page+2;
+	let beginPage = page;
 	let prevPage, nextPage = false 
 	if(beginPage>1){
 		prevPage = true;
 	}
-	
+	if(beginPage>=3){
+		beginPage =page -2;
+	}else{
+		beginPage = page;
+		endPage = page +4
+	}
 	if(endPage<lastPage){
 		nextPage = true;
 	}
@@ -100,7 +105,7 @@ function genTable(rawData = [], page=1) {
 		
 		
 		aTag.addEventListener('click', function(e){
-			genTable(rawData,i+2);
+			genTable(rawData,i);
 			
 			
 		})

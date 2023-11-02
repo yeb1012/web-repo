@@ -35,6 +35,8 @@ public class StudentListServlet extends HttpServlet{
 	
 	@Override
 		protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
+		resp.setCharacterEncoding("utf-8");//인코팅부터
+		resp.setContentType("text/json;charset=utf-8");//페이지에 보여주는 거
 		Enumeration<String> enumer = req.getHeaderNames();
 		while(enumer.hasMoreElements()) {
 			String header = enumer.nextElement();
@@ -47,13 +49,12 @@ public class StudentListServlet extends HttpServlet{
 		System.out.println(name +","+ age);
 		System.out.println("service call");
 		//응답정보의 컨텐트 타입, 인코딩처리
-		resp.setCharacterEncoding("utf-8");//인코팅부터
-		resp.setContentType("text/json;charset=utf-8");//페이지에 보여주는 거
+		
 		//학생정보를 json 전송
 		StudentService svc = new StudentServiceImpl();
 		List<StudentVO> list = svc.listStudent();
 		//객체 ->json 문자열
-		Gson gson = new GsonBuilder().create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		String json =gson.toJson(list);
 		
 		PrintWriter out = resp.getWriter();
