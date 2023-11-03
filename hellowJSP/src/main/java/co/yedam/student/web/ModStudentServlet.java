@@ -55,7 +55,8 @@ public class ModStudentServlet extends HttpServlet {
 			map.put("retCode", "NG");
 			map.put("vo", vo);
 		}
-		
+		System.out.println("map"+map);
+		System.out.println(svc.editStudent(vo));
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		String json =gson.toJson(map);
 		PrintWriter out =resp.getWriter();
