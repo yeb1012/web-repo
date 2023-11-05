@@ -94,7 +94,7 @@ public class BoardDAO {
 	public int insert(BoardVO vo) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sql="insert into board (board_no, title, content, writer ) "
-				+ "values(?,?,?)";
+				+ "values(SEQ_BOARD.NEXTVAL,?,?,?)";
 		conn = ds.getConnection();
 		
 		try {

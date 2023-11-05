@@ -11,8 +11,8 @@ public class DataSource {
 		}
 		
 		private static String driver = "oracle.jdbc.OracleDriver";
-		private static String url = "jdbc:oracle:thin:@192.168.0.42:1521:xe";
-		private static String user = "hr";
+		private static String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		private static String user = "c##cafe";
 		private static String password = "1234";
 		
 		
