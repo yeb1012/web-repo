@@ -14,9 +14,8 @@
                          
 	<form action="modifyBoard.do" method="POST">
 	<input type = "hidden" name="bno" value ="<%= vo.getBoardNo()%>">
-	<table border="1">
-	<tr><th>글번호</th>
-	<td><%=vo.getBoardNo() %></td>
+	<table class="table">
+	<tr>
 	<th>작성일시</th>
 	<td><%=vo.getWriteDate() %></td>
 	</tr>
@@ -33,7 +32,9 @@
 	</tr>
 	<tr>
 	<th>파일명</th>
+	<%if(vo.getImage()!=null){ %>
 	<td><img src="image/<%=vo.getImage() %>" width ="80px">
+	<%} %>
 	<tr>
 	<td colspan="2" align ="center">
 	<input type = "submit" value="수정"  class = "btn btn-primary">

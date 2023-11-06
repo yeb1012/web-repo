@@ -13,7 +13,7 @@ public interface BoardService {
 	public boolean removeBoard(int boardNO);
 	
 	//로그인
-	public boolean loginCheck(String id, String pw);
+	public MemberVO loginCheck(String id, String pw);
 	//관리자 계정
 	public List<MemberVO> MemberList();
 }

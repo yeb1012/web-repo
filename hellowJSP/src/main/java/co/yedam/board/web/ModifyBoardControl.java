@@ -19,6 +19,7 @@ public class ModifyBoardControl implements Command {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		//파라메터 활용 -> 데이터 수정 -> 목록이동.
 		BoardVO vo = new BoardVO();
+		BoardService svc = new BoardServiceImpl();
 		if (req.getMethod().equals("GET"))
 		{	
 			String title = req.getParameter("title");
@@ -40,7 +41,7 @@ public class ModifyBoardControl implements Command {
 				mr = new MultipartRequest(req, saveDir, size, "UTF-8", new DefaultFileRenamePolicy());
 				String title = mr.getParameter("title");
 				String content = mr.getParameter("content");
-				String img = mr.getParameter("img");
+				String img = mr.getFilesystemName("img");
 				vo.setTitle(title);
 				vo.setImage(img);
 				vo.setContent(content);
@@ -49,7 +50,7 @@ public class ModifyBoardControl implements Command {
 			}
 		}
 		
-		BoardService svc = new BoardServiceImpl();
+		
 		if(svc.editBoard(vo)) {
 
 		try

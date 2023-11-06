@@ -1,8 +1,6 @@
 package co.yedam.common;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,19 +16,14 @@ public class LoginControl implements Command {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		String id = req.getParameter("m_id");
 		String pw = req.getParameter("m_password");
-		String res = req.getParameter("responsbility");
-
-		
 		
 		BoardService svc = new BoardServiceImpl();
-		List<MemberVO> vo = new ArrayList <MemberVO>();
-		vo = svc.MemberList();
-		if(svc.loginCheck(id, pw)) {
-			
-
+		MemberVO vo = new MemberVO();
+		vo = svc.loginCheck(id, pw);
+		if(svc.loginCheck(id, pw)!= null) {
 			HttpSession session = req.getSession();
 			session.setAttribute("logId", id);//창을 닫지 않는 한 계속 유지 //req는 매번 달라짐
-			session.setAttribute("responsbility", svc);
+			session.setAttribute("responsbility", vo.getResponsbility());
 			
 			try {
 				resp.sendRedirect("boardList.do");

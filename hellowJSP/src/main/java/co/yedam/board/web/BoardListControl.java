@@ -16,7 +16,7 @@ public class BoardListControl implements Command {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		BoardService svc = new BoardServiceImpl();
-		BoardDAO bd = new BoardDAO();
+		
 		List<BoardVO> list = svc.boardList();
 		
 		req.setAttribute("list", list);//이 요청 특성이 아래 board/boardList.jsp에 그대로 전달 됨

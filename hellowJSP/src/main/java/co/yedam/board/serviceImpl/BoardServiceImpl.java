@@ -38,7 +38,7 @@ public boolean removeBoard(int boardNo) {
 	return dao.delete(boardNo)==1;
 }
 @Override
-	public boolean loginCheck(String id, String pw) {
+	public MemberVO loginCheck(String id, String pw) {
 		
 		return dao.getUser(id, pw);
 	}

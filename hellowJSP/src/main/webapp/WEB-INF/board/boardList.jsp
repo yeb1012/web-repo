@@ -42,4 +42,5 @@ List<BoardVO> list = (List<BoardVO>) request.getAttribute("list");//List<BoardVO
 <p>
 	<a href="boardForm.do">등록화면</a>
 </p>
+
 <%@include file="../layout/footer.jsp"%>

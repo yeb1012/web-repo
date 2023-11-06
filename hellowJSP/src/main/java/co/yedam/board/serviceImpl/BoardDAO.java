@@ -93,8 +93,8 @@ public class BoardDAO {
 		return vo;
 	}
 	public int insert(BoardVO vo) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		sql="insert into board (board_no,title,content,writer,image) "
+		
+		sql="insert into board (board_no,title,content,image) "
 				+ "values(SEQ_BOARD.NEXTVAL,?,?,?,?)";
 		conn = ds.getConnection();
 		
@@ -171,9 +171,10 @@ public class BoardDAO {
 	}
 	
 	//로그인
-	public boolean getUser(String id, String pw) {
+	public MemberVO getUser(String id, String pw) {
 		sql = "select * from member where m_id=? and m_password=?";
 		conn=ds.getConnection();
+		MemberVO vo = new MemberVO();
 		try {
 			psmt=conn.prepareStatement(sql);
 			psmt.setString(1, id);
@@ -181,7 +182,9 @@ public class BoardDAO {
 			rs= psmt.executeQuery();
 			
 			if(rs.next()) {
-				return true;
+				vo.setMid(rs.getString("m_id"));
+				vo.setMpassword(rs.getString("m_password"));
+				vo.setResponsbility(rs.getString("responsbility"));
 			}
 			
 		}catch(SQLException e) {
@@ -190,7 +193,7 @@ public class BoardDAO {
 			close();
 		}
 		
-		return false;
+		return vo;
 	}
 	public List<MemberVO> getMember() {
 			List<MemberVO> list = new ArrayList <MemberVO>();

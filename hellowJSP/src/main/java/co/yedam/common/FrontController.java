@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.board.web.AddBoardControl;
-import co.yedam.board.web.AdminFormControl;
 import co.yedam.board.web.BoardFormControl;
 import co.yedam.board.web.BoardListControl;
 import co.yedam.board.web.GetBoardControl;
@@ -33,11 +32,11 @@ public class FrontController extends HttpServlet{
 		map.put("/login.do", new LoginControl());
 		
 		//로그아웃 페이지
-		map.put("/logoutForm.do", new LogoutFormControl());
+		map.put("/logout.do", new LogoutFormControl());
 		//map.put("logout.do", new LogoutControl());
 		
 		//관리자 페이지
-		map.put("/MemberList.do", new AdminFormControl());		
+		map.put("/MemberList.do", new MemberListControl());		
 		//map.put("/FirstServlet.do", new FirstControl());//FirstControl:Command 인터페이스 구현하는 클래스
 		//map.put("/second.do", new SecondControl());//앞에 주소가 들어오면 뒤에 클래스를 실행하겠다
 		map.put("/boardList.do", new BoardListControl());

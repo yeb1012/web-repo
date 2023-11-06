@@ -24,7 +24,7 @@
 	<tr>
 	<td colspan="2" align="center">
 	<input type = "submit"  class = "btn btn-primary" value="저장">
-	<input type = "reset" value="초기화" class = "btn btn-warning" value="초기화"></td>
+	<input type = "reset" value="초기화" class = "btn btn-warning" ></td>
 	</tr>
 	</table>
 	</form>
