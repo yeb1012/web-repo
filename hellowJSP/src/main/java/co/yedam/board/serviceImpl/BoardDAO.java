@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.yedam.board.service.BoardVO;
+import co.yedam.board.service.MemberVO;
 import co.yedam.common.DataSource;
 
 public class BoardDAO {
@@ -93,8 +94,8 @@ public class BoardDAO {
 	}
 	public int insert(BoardVO vo) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		sql="insert into board (board_no, title, content, writer ) "
-				+ "values(SEQ_BOARD.NEXTVAL,?,?,?)";
+		sql="insert into board (board_no,title,content,writer,image) "
+				+ "values(SEQ_BOARD.NEXTVAL,?,?,?,?)";
 		conn = ds.getConnection();
 		
 		try {
@@ -103,6 +104,7 @@ public class BoardDAO {
 			psmt.setString(1,vo.getTitle());
 			psmt.setString(2,vo.getContent());
 			psmt.setString(3,vo.getWriter());
+			psmt.setString(4,vo.getImage());
 			
 			int n = psmt.executeUpdate();
 			return n;
@@ -168,4 +170,49 @@ public class BoardDAO {
 		return 0;
 	}
 	
+	//로그인
+	public boolean getUser(String id, String pw) {
+		sql = "select * from member where m_id=? and m_password=?";
+		conn=ds.getConnection();
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, pw);
+			rs= psmt.executeQuery();
+			
+			if(rs.next()) {
+				return true;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return false;
+	}
+	public List<MemberVO> getMember() {
+			List<MemberVO> list = new ArrayList <MemberVO>();
+			sql = "select*from member";
+			conn = ds.getConnection();
+			try {psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setMid(rs.getString("m_id"));
+				vo.setMpassword(rs.getString("m_password"));
+				vo.setName(rs.getString("name"));
+				vo.setPhone(rs.getString("phone"));
+				vo.setResponsbility(rs.getString("responsbility"));
+				
+				list.add(vo);}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return list;
+			}
 }
